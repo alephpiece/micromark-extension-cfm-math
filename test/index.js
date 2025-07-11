@@ -2,14 +2,14 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import katex from 'katex'
 import {micromark} from 'micromark'
-import {math, mathHtml} from 'micromark-extension-math'
+import {math, mathHtml} from 'micromark-extension-cfm-math'
 
 const renderToString = katex.renderToString
 
 test('math', async function (t) {
   await t.test('should expose the public api', async function () {
     assert.deepEqual(
-      Object.keys(await import('micromark-extension-math')).sort(),
+      Object.keys(await import('micromark-extension-cfm-math')).sort(),
       ['math', 'mathHtml']
     )
   })
@@ -315,6 +315,64 @@ test('math', async function (t) {
         '<div class="math math-display">' +
           renderToString('a', {displayMode: true}) +
           '</div>'
+      )
+    }
+  )
+
+  await t.test(
+    'should support math (flow) w/ meta, but no content',
+    async function () {
+      assert.equal(
+        micromark('$$x\n$$', {
+          extensions: [math()],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<div class="math math-display">' +
+          renderToString('', {displayMode: true}) +
+          '</div>'
+      )
+    }
+  )
+
+  await t.test(
+    'should support math (flow) w/ meta, but no eol',
+    async function () {
+      assert.equal(
+        micromark('$$x$$', {
+          extensions: [math()],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<div class="math math-display">' +
+          renderToString('', {displayMode: true}) +
+          '</div>'
+      )
+    }
+  )
+
+  await t.test(
+    'should not support math (flow) w/ content after closing fence',
+    async function () {
+      assert.equal(
+        micromark('$$x$$ y', {
+          extensions: [math()],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<p><span class="math math-inline">' +
+          renderToString('x') +
+          '</span> y</p>'
+      )
+    }
+  )
+
+  await t.test(
+    'should not support math (flow) w/ different markers (single line)',
+    async function () {
+      assert.equal(
+        micromark('$$x$$$', {
+          extensions: [math()],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<p>$$x$$$</p>'
       )
     }
   )

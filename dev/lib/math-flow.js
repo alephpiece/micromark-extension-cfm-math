@@ -100,6 +100,21 @@ function tokenizeMathFenced(effects, ok, nok) {
       return metaAfter(code)
     }
 
+    return effects.attempt(
+      {tokenize: tokenizeSingleLine, partial: true},
+      singleLineSuccess,
+      multiLineMetaStart
+    )(code)
+  }
+
+  /** @type {State} */
+  function singleLineSuccess(code) {
+    effects.exit('mathFlowFence')
+    return after(code)
+  }
+
+  /** @type {State} */
+  function multiLineMetaStart(code) {
     effects.enter('mathFlowFenceMeta')
     effects.enter(types.chunkString, {contentType: constants.contentTypeString})
     return meta(code)
@@ -271,6 +286,78 @@ function tokenizeMathFenced(effects, ok, nok) {
   function after(code) {
     effects.exit('mathFlow')
     return ok(code)
+  }
+
+  /** @type {Tokenizer} */
+  function tokenizeSingleLine(effects, ok, nok) {
+    // We are right after the opening fence, e.g., `$$`
+    // The first character `code` is part of the meta string.
+    effects.enter('mathFlowFenceMeta')
+    effects.enter(types.chunkString, {contentType: constants.contentTypeString})
+    return meta
+
+    /**
+     * In meta part of a single line math flow.
+     * @type {State}
+     */
+    function meta(code) {
+      if (code === codes.eof || markdownLineEnding(code)) {
+        // No closing fence on the same line, so this isn't a single-line block.
+        return nok(code)
+      }
+
+      if (code === codes.dollarSign) {
+        // Potential closing fence.
+        effects.exit(types.chunkString)
+        effects.exit('mathFlowFenceMeta')
+        return close(code)
+      }
+
+      effects.consume(code)
+      return meta
+    }
+
+    /**
+     * At closing fence of a single line math flow.
+     * @type {State}
+     */
+    function close(code) {
+      let size = 0
+      effects.enter('mathFlowFenceSequence')
+      return sequenceClose(code)
+
+      /**
+       * In closing fence sequence of a single line math flow.
+       * @type {State}
+       */
+      function sequenceClose(code) {
+        if (code === codes.dollarSign) {
+          size++
+          effects.consume(code)
+          return sequenceClose
+        }
+
+        // For single line, we require the size to be exactly the same.
+        if (size !== sizeOpen) {
+          return nok(code)
+        }
+
+        effects.exit('mathFlowFenceSequence')
+        return factorySpace(effects, afterSequence, types.whitespace)(code)
+      }
+
+      /**
+       * After closing fence of a single line math flow.
+       * @type {State}
+       */
+      function afterSequence(code) {
+        if (code === codes.eof || markdownLineEnding(code)) {
+          return ok(code)
+        }
+
+        return nok(code)
+      }
+    }
   }
 
   /** @type {Tokenizer} */

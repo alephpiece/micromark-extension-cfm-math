@@ -1,4 +1,4 @@
-# micromark-extension-math
+# micromark-extension-cfm-math
 
 [![Build][build-badge]][build]
 [![Coverage][coverage-badge]][coverage]
@@ -65,20 +65,20 @@ In Node.js (version 16+), install with [npm][]:
 [npm][]:
 
 ```sh
-npm install micromark-extension-math
+npm install micromark-extension-cfm-math
 ```
 
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {math, mathHtml} from 'https://esm.sh/micromark-extension-math@3'
+import {math, mathHtml} from 'https://esm.sh/micromark-extension-cfm-math@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {math, mathHtml} from 'https://esm.sh/micromark-extension-math@3?bundle'
+  import {math, mathHtml} from 'https://esm.sh/micromark-extension-cfm-math@3?bundle'
 </script>
 ```
 
@@ -99,7 +99,7 @@ $$
 ```js
 import fs from 'node:fs/promises'
 import {micromark} from 'micromark'
-import {math, mathHtml} from 'micromark-extension-math'
+import {math, mathHtml} from 'micromark-extension-cfm-math'
 
 const output = micromark(await fs.readFile('example.md'), {
   extensions: [math()],
@@ -323,7 +323,7 @@ versions of Node.js.
 When we cut a new major release, we drop support for unmaintained versions of
 Node.
 This means we try to keep the current release line,
-`micromark-extension-math@^3`, compatible with Node.js 16.
+`micromark-extension-cfm-math@^3`, compatible with Node.js 16.
 
 This package works with `micromark` version `3` and later.
 
@@ -352,25 +352,25 @@ abide by its terms.
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][license] © [alephpiece][author]
 
 <!-- Definitions -->
 
-[build-badge]: https://github.com/micromark/micromark-extension-math/workflows/main/badge.svg
+[build-badge]: https://github.com/alephpiece/micromark-extension-cfm-math/workflows/main/badge.svg
 
-[build]: https://github.com/micromark/micromark-extension-math/actions
+[build]: https://github.com/alephpiece/micromark-extension-cfm-math/actions
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/micromark/micromark-extension-math.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/alephpiece/micromark-extension-cfm-math.svg
 
-[coverage]: https://codecov.io/github/micromark/micromark-extension-math
+[coverage]: https://codecov.io/github/alephpiece/micromark-extension-cfm-math
 
-[downloads-badge]: https://img.shields.io/npm/dm/micromark-extension-math.svg
+[downloads-badge]: https://img.shields.io/npm/dm/micromark-extension-cfm-math.svg
 
-[downloads]: https://www.npmjs.com/package/micromark-extension-math
+[downloads]: https://www.npmjs.com/package/micromark-extension-cfm-math
 
-[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=micromark-extension-math
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=micromark-extension-cfm-math
 
-[size]: https://bundlejs.com/?q=micromark-extension-math
+[size]: https://bundlejs.com/?q=micromark-extension-cfm-math
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -380,7 +380,7 @@ abide by its terms.
 
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
-[chat]: https://github.com/micromark/micromark/discussions
+[chat]: https://github.com/alephpiece/micromark-extension-cfm-math/discussions
 
 [npm]: https://docs.npmjs.com/cli/install
 
@@ -388,7 +388,7 @@ abide by its terms.
 
 [license]: license
 
-[author]: https://wooorm.com
+[author]: https://github.com/alephpiece
 
 [contributing]: https://github.com/micromark/.github/blob/main/contributing.md
 

@@ -1,7 +1,7 @@
 {
-  "name": "micromark-extension-math",
-  "version": "3.1.0",
-  "description": "micromark extension to support math (`$C_L$`)",
+  "name": "micromark-extension-cfm-math",
+  "version": "3.1.1",
+  "description": "micromark extension to support math (`$C_L$`) for Cherry Studio Flavored Markdown (CFM), forked from micromark-extension-math.",
   "license": "MIT",
   "keywords": [
     "micromark",
@@ -13,16 +13,9 @@
     "markdown",
     "unified"
   ],
-  "repository": "micromark/micromark-extension-math",
-  "bugs": "https://github.com/micromark/micromark-extension-math/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-  "contributors": [
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
-  ],
+  "repository": "alephpiece/micromark-extension-cfm-math",
+  "bugs": "https://github.com/alephpiece/micromark-extension-cfm-math/issues",
+  "author": "alephpiece <wangan.cs@gmail.com> (https://github.com/alephpiece)",
   "sideEffects": false,
   "type": "module",
   "exports": {
