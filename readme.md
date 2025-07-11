@@ -4,8 +4,6 @@
 [![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
-[![Sponsors][sponsors-badge]][collective]
-[![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
 [micromark][] extensions to support math (`$C_L$`).
@@ -15,6 +13,8 @@
 * [What is this?](#what-is-this)
 * [When to use this](#when-to-use-this)
 * [Install](#install)
+  * [Replacing the official package](#replacing-the-official-package)
+  * [Standard Installation](#standard-installation)
 * [Use](#use)
 * [API](#api)
   * [`math(options?)`](#mathoptions)
@@ -58,6 +58,56 @@ All these packages are used [`remark-math`][remark-math], which focusses on
 making it easier to transform content by abstracting these internals away.
 
 ## Install
+
+### Replacing the official package
+
+If you are using another tool (such as `remark-math`) that depends on the original `micromark-extension-math`, you will need to tell your build tool or package manager to use this package (`micromark-extension-cfm-math`) instead.
+
+#### With Vite
+
+In your `vite.config.js` (or `vite.config.ts`), you can use the `resolve.alias` option:
+
+```js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  // ...
+  resolve: {
+    alias: {
+      'micromark-extension-math': 'micromark-extension-cfm-math'
+    }
+  }
+})
+```
+
+#### With Package Manager Overrides
+
+A more robust method is to use the overrides feature of your package manager. This forces the dependency resolution to always use your preferred version, regardless of how deep it is in the dependency tree.
+
+*   **For npm (v8.3.0+):** add this to your `package.json`:
+    ```json
+    "overrides": {
+      "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
+    }
+    ```
+*   **For pnpm:** add this to your `package.json`:
+    ```json
+    "pnpm": {
+      "overrides": {
+        "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
+      }
+    }
+    ```
+*   **For Yarn (v1 Classic and v2+ Modern):** add this to your `package.json`:
+    ```json
+    "resolutions": {
+      "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
+    }
+    ```
+
+After adding this, delete your `node_modules` directory and lock file (`package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock`), and run install again.
+
+### Standard Installation
 
 This package is [ESM only][esm].
 In Node.js (version 16+), install with [npm][]:
@@ -371,12 +421,6 @@ abide by its terms.
 [size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=micromark-extension-cfm-math
 
 [size]: https://bundlejs.com/?q=micromark-extension-cfm-math
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
 
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
