@@ -61,11 +61,14 @@ making it easier to transform content by abstracting these internals away.
 
 ### Replacing the official package
 
-If you are using another tool (such as `remark-math`) that depends on the original `micromark-extension-math`, you will need to tell your build tool or package manager to use this package (`micromark-extension-cfm-math`) instead.
+If you are using another tool (such as `remark-math`) that depends on the
+original `micromark-extension-math`, you will need to tell your build tool or
+package manager to use this package (`micromark-extension-cfm-math`) instead.
 
 #### With Vite
 
-In your `vite.config.js` (or `vite.config.ts`), you can use the `resolve.alias` option:
+In your `vite.config.js` (or `vite.config.ts`), you can use the `resolve.alias`
+option:
 
 ```js
 import { defineConfig } from 'vite'
@@ -82,30 +85,38 @@ export default defineConfig({
 
 #### With Package Manager Overrides
 
-A more robust method is to use the overrides feature of your package manager. This forces the dependency resolution to always use your preferred version, regardless of how deep it is in the dependency tree.
+A more robust method is to use the overrides feature of your package manager.
+This forces the dependency resolution to always use your preferred version,
+regardless of how deep it is in the dependency tree.
 
-*   **For npm (v8.3.0+):** add this to your `package.json`:
-    ```json
-    "overrides": {
-      "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
-    }
-    ```
-*   **For pnpm:** add this to your `package.json`:
-    ```json
-    "pnpm": {
-      "overrides": {
-        "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
-      }
-    }
-    ```
-*   **For Yarn (v1 Classic and v2+ Modern):** add this to your `package.json`:
-    ```json
-    "resolutions": {
-      "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
-    }
-    ```
+**For npm (v8.3.0+):** add this to your `package.json`:
 
-After adding this, delete your `node_modules` directory and lock file (`package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock`), and run install again.
+```json
+"overrides": {
+  "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
+}
+```
+
+**For pnpm:** add this to your `package.json`:
+
+```json
+"pnpm": {
+  "overrides": {
+    "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
+  }
+}
+```
+
+**For Yarn (v1 Classic and v2+ Modern):** add this to your `package.json`:
+
+```json
+"resolutions": {
+  "micromark-extension-math": "npm:micromark-extension-cfm-math@^3"
+}
+```
+
+After adding this, delete your `node_modules` directory and lock file
+(`package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock`), and run install again.
 
 ### Standard Installation
 
