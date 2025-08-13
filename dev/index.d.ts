@@ -12,7 +12,7 @@ export {math} from './lib/syntax.js'
  */
 export interface HtmlOptions extends KatexOptions {
   /**
-   * The field `displayMode` cannot be passed to `micromark-extension-math`.
+   * The field `displayMode` cannot be passed to `micromark-extension-cfm-math`.
    * It is overwritten by it,
    * to `false` for math in text (inline) and `true` for math in flow (block).
    */

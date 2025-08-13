@@ -7,3 +7,8 @@ node_modules/
 /index.js
 yarn.lock
 !dev/index.d.ts
+
+.env
+.claude/*
+.cursor/*
+.gemini/*
