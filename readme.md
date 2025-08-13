@@ -243,6 +243,12 @@ Configuration (TypeScript type).
   with “normal” dollars in text.
   If you turn this off, you use two or more dollars for text math.
 
+* `strictSingleDollar` (`boolean`, default: `true`)
+  — whether to use strict rules for single dollar math.
+  When enabled, single dollar math must not have spaces immediately after
+  the opening dollar or before the closing dollar.
+  This prevents false positives like `$10 $20` being treated as math.
+
 ## Authoring
 
 When authoring markdown with math, keep in mind that math doesn’t work in most

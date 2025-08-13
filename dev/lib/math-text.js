@@ -24,6 +24,11 @@ export function mathText(options) {
     single = true
   }
 
+  let strict = options_.strictSingleDollar
+  if (strict === null || strict === undefined) {
+    strict = true
+  }
+
   return {
     tokenize: tokenizeMathText,
     resolve: resolveMathText,
@@ -88,6 +93,11 @@ export function mathText(options) {
         return nok(code)
       }
 
+      // In strict mode, after a single dollar, we can’t have whitespace.
+      if (strict && sizeOpen === 1 && code === codes.space) {
+        return nok(code)
+      }
+
       effects.exit('mathTextSequence')
       return between(code)
     }
@@ -108,6 +118,18 @@ export function mathText(options) {
       }
 
       if (code === codes.dollarSign) {
+        const previousCode = self.previous
+        // In strict mode, before a single dollar, we can’t have whitespace.
+        if (strict && sizeOpen === 1 && previousCode === codes.space) {
+          // It’s a dollar preceded by whitespace, so in strict mode it’s not a
+          // closing delimiter.
+          // We’ll consume it as data and stay in `between`.
+          effects.enter('mathTextData')
+          effects.consume(code)
+          effects.exit('mathTextData')
+          return between
+        }
+
         token = effects.enter('mathTextSequence')
         size = 0
         return sequenceClose(code)

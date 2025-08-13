@@ -31,6 +31,15 @@ export interface Options {
    * If you turn this off, you can use two or more dollars for text math.
    */
   singleDollarTextMath?: boolean | null | undefined
+  /**
+   * Whether to use strict rules for single dollar math (default: `true`).
+   *
+   * When enabled, single dollar math must not have spaces immediately after
+   * the opening dollar or before the closing dollar.
+   * This prevents false positives like `$10 $20` being treated as math.
+   * Only affects single dollar math (not double or more).
+   */
+  strictSingleDollar?: boolean | null | undefined
 }
 
 /**

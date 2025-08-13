@@ -205,6 +205,18 @@ test('math', async function (t) {
     }
   )
 
+  await t.test('should support spaces in math', async function () {
+    assert.equal(
+      micromark('$a b$', {
+        extensions: [math({strictSingleDollar: true})],
+        htmlExtensions: [mathHtml()]
+      }),
+      '<p><span class="math math-inline">' +
+        renderToString('a b') +
+        '</span></p>'
+    )
+  })
+
   await t.test('should support EOLs in math', async function () {
     assert.equal(
       micromark('a $b\nc\rd\r\ne$ f', {
@@ -502,4 +514,45 @@ test('math', async function (t) {
         '</div>\n</blockquote>'
     )
   })
+
+  await t.test(
+    'should support strictSingleDollar w/ space before closing dollar sign',
+    async function () {
+      assert.equal(
+        micromark('$10 $20', {
+          extensions: [math({strictSingleDollar: true})],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<p>$10 $20</p>'
+      )
+    }
+  )
+
+  await t.test(
+    'should support strictSingleDollar w/ space after opening dollar sign',
+    async function () {
+      assert.equal(
+        micromark('$ 10$20', {
+          extensions: [math({strictSingleDollar: true})],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<p>$ 10$20</p>'
+      )
+    }
+  )
+
+  await t.test(
+    'should keep math (flow) unaffected w/ strictSingleDollar enabled',
+    async function () {
+      assert.equal(
+        micromark('$$ 10 $$20', {
+          extensions: [math({strictSingleDollar: true})],
+          htmlExtensions: [mathHtml()]
+        }),
+        '<p><span class="math math-inline">' +
+          renderToString('10') +
+          '</span>20</p>'
+      )
+    }
+  )
 })
